@@ -2,7 +2,7 @@ extends Node
 
 
 var levels: Dictionary = {}
-var unlocked: Array = []
+var unlocked: Array = [Vector2()]
 var complete: Array = []
 
 var in_level: bool = false

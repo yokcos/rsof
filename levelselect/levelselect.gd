@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func deploy_level_buttons():
-	for i in Levels.levels:
+	for i in Levels.unlocked:
 		var new_level_button = obj_level_button.instance()
 		$levels.add_child(new_level_button)
 		

@@ -7,7 +7,8 @@ const obj_level_button = preload("res://levelselect/level_button.tscn")
 
 
 func _ready() -> void:
-	$levels/lv0_0.to_be_selected = true
+	deploy_level_buttons()
+	select_level_at()
 
 
 func deploy_level_buttons():
@@ -15,5 +16,11 @@ func deploy_level_buttons():
 		var new_level_button = obj_level_button.instance()
 		$levels.add_child(new_level_button)
 		
-		new_level_button.target_level = Levels.levels[i]
+		new_level_button.target_level = i
 		new_level_button.position = i * level_spacing
+
+func select_level_at(where: Vector2 = Vector2()):
+	for i in $levels.get_children():
+		if i.target_level == where:
+			i.to_be_selected = true
+			break

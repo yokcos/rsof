@@ -6,3 +6,4 @@
 script = ExtResource( 3 )
 
 [node name="levels" type="Node2D" parent="."]
+position = Vector2( 512, 288 )

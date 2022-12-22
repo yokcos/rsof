@@ -16,3 +16,8 @@ func set_size(what: Vector2):
 	$hitbox.shape = new_shape
 	$sprite.region_rect.size = halfsize*2
 
+
+
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("players"):
+		Levels.complete_level()

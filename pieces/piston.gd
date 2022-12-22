@@ -17,6 +17,8 @@ func _ready() -> void:
 	
 	if !Engine.editor_hint:
 		$visual.hide()
+	
+	calculate_total_time()
 
 func _process(delta: float) -> void:
 	if !Engine.editor_hint:
@@ -38,6 +40,9 @@ func _process(delta: float) -> void:
 		elif phase < t3:
 			position = lerp(base_position+offset, base_position, (phase-t2) / retract_time)
 
+
+func calculate_total_time():
+	total_time = standby_time + extend_time + active_time + retract_time
 
 func set_offset(what: Vector2):
 	offset = what

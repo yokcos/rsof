@@ -2,56 +2,44 @@ tool
 extends Node2D
 
 
-export (float) var angle = 90 setget set_angle
-export (float) var standby_time = 1
-export (float) var extend_time = 1
-export (float) var active_time = 1
-export (float) var retract_time = 1
-export (float) var phase = 0 # In seconds
-var total_time = standby_time + extend_time + active_time + retract_time
+export (float) var radius = 64 setget set_radius
+export (float) var initial_angle = 0 # in degrees
+
+var angle: float = 0 setget set_angle
+var centre: Vector2 = Vector2()
 
 
 func _ready() -> void:
 	if !Engine.editor_hint:
-		$visual.hide()
-		$visual.show()
+		centre = position
+		
+		if !OS.is_debug_build():
+			$preview.queue_free()
+		else:
+			visualise()
+			$preview.raise()
+
+
+func visualise():
+	var points = PoolVector2Array()
+	var pointcount = 16
+	var initial_angle = deg2rad(angle)
 	
-	calculate_total_time()
-
-func _process(delta: float) -> void:
-	if !Engine.editor_hint:
-		phase += delta
-		var r_angle = deg2rad(angle)
-		if phase >= total_time:
-			phase -= total_time
-		
-		var t0 = standby_time
-		var t1 = t0 + extend_time
-		var t2 = t1 + active_time
-		var t3 = t2 + retract_time
-		
-		if phase < t0:
-			rotation = 0
-		elif phase < t1:
-			rotation = lerp(0, r_angle, (phase-t0) / extend_time)
-		elif phase < t2:
-			rotation = r_angle
-		elif phase < t3:
-			rotation = lerp(r_angle, 0, (phase-t2) / retract_time)
+	for i in range(pointcount + 1):
+		points.append( Vector2(radius, 0).rotated(initial_angle + i * PI*2/pointcount) )
+	
+	points.append(Vector2())
+	
+	$preview.points = points
 
 
-func calculate_total_time():
-	total_time = standby_time + extend_time + active_time + retract_time
+func set_radius(what: float):
+	radius = what
+	visualise()
 
 func set_angle(what: float):
 	angle = what
 	
-	if Engine.editor_hint:
-		var points = [Vector2()]
-		var visualisation_radius: float = 32
-		var point_count: float = 8
-		
-		for i in range(point_count + 1):
-			points.append( Vector2(visualisation_radius, 0).rotated(deg2rad(angle) * i/point_count) )
-		
-		$visual.points = PoolVector2Array(points)
+	var radians = deg2rad(what)
+	# position = centre + Vector2(radius, 0).rotated(radians)
+	rotation = radians

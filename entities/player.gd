@@ -70,3 +70,4 @@ func frictutate(delta: float):
 
 func die():
 	global_position = spawn_pos
+	slow_time = 0

@@ -39,7 +39,8 @@ void fragment() {
 	vec4 original_colour = blur(SCREEN_TEXTURE, target_uv, .2, 2.0*SCREEN_PIXEL_SIZE.x);
 	vec4 modified_colour = original_colour;
 	
-	float vignette = length( UV - centre )*vignette_intensity * noise_factor;
+	float vignette_noise_factor = 1.0 - 0.2*noise_factor;
+	float vignette = length( UV - centre )*vignette_intensity * vignette_noise_factor;
 	modified_colour = mix( original_colour, vec4(1.0, 1.0, 1.0, 1.0), vignette );
 	
 	COLOR = modified_colour;

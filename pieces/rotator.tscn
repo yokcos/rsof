@@ -3,10 +3,10 @@
 [ext_resource path="res://pieces/rotator.gd" type="Script" id=1]
 
 [node name="rotator" type="Node2D"]
+rotation = 8.35126e-06
 script = ExtResource( 1 )
-angle = 0.000478492
 
-[node name="visual" type="Line2D" parent="."]
+[node name="preview" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 3.3405e-05, 32, 6.68101e-05, 32, 0.000100215, 32, 0.00013362, 32, 0.000167025, 32, 0.00020043, 32, 0.000233835, 32, 0.00026724 )
 width = 2.0
 default_color = Color( 0.262745, 0.619608, 0.435294, 0.498039 )

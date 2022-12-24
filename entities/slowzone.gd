@@ -5,6 +5,7 @@ extends Area2D
 export (Vector2) var size = Vector2(1, 1) setget set_size
 export (float) var frequency = 1
 export (float) var duration = 1
+export (float) var phase = 0
 
 var base_size: Vector2 = Vector2(32, 32)
 
@@ -14,7 +15,11 @@ var active_colour: Color = Color("ffffff")
 
 func _ready() -> void:
 	if !Engine.editor_hint:
-		$timer.start(frequency)
+		if phase > 0:
+			$timer.start(phase)
+			$timer.wait_time = frequency
+		else:
+			$timer.start(frequency)
 		
 		apply_hitbox()
 		apply_visual()

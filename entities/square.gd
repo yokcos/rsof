@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	
 	if freeze_time > 0:
 		freeze_time -= delta
-		global_transform = freeze_stats
+		#global_transform = freeze_stats
 		if freeze_time <= 0:
 			get_unfrozen()
 

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://entities/slowzone.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="slowzone" type="Area2D"]
+script = ExtResource( 1 )
+size = Vector2( 2, 2 )
+
+[node name="timer" type="Timer" parent="."]
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+
+[node name="visual" type="Polygon2D" parent="."]
+color = Color( 1, 1, 1, 0.317647 )
+polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[node name="tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

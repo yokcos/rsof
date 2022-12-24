@@ -1,14 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://decor/snow.tscn" type="PackedScene" id=1]
 [ext_resource path="res://decor/shaderiser.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levelselect/levelselect.gd" type="Script" id=3]
 
-[node name="levelselect" type="Node2D"]
-script = ExtResource( 3 )
-
-[node name="levels" type="Node2D" parent="."]
-position = Vector2( 512, 288 )
+[node name="overlay" type="Node2D"]
 
 [node name="snow" parent="." instance=ExtResource( 1 )]
 

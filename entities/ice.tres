@@ -9,10 +9,12 @@ uniform sampler2D gradient;
 
 void fragment() {
 	vec2 uv;
-	uv.x = texture(TEXTURE, UV).r;
-	uv.y = texture(noise, UV).r;
+	uv.x = texture(TEXTURE, SCREEN_UV).r;
+	uv.y = texture(noise, SCREEN_UV).r;
+	uv.x += sin(TIME / 10.0) / 20.0;
 	
 	uv = 0.5 + 2.0*(uv - 0.5);
+	uv.x = clamp(uv.x, 0.0, 1.0);
 	
 	COLOR = texture(gradient, uv);
 }

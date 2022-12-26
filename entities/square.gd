@@ -1,7 +1,7 @@
 extends Area2D
 
 
-var rotation_speed: float = -290
+var rotation_speed: float = -400
 var freeze_time: float = 0
 var freeze_stats: Transform2D = Transform2D()
 

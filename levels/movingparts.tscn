@@ -1,0 +1,201 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://entities/wall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/goal.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/_level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/icezone.tscn" type="PackedScene" id=5]
+[ext_resource path="res://pieces/square_line.tscn" type="PackedScene" id=6]
+[ext_resource path="res://pieces/rotator_constant.tscn" type="PackedScene" id=7]
+[ext_resource path="res://levels/partial_ring_deleter.gd" type="Script" id=8]
+[ext_resource path="res://pieces/square_ring.tscn" type="PackedScene" id=9]
+[ext_resource path="res://pieces/rotator_sin.tscn" type="PackedScene" id=10]
+
+[node name="level" instance=ExtResource( 3 )]
+title = "Moving Parts"
+pos = Vector2( -1, -1 )
+
+[node name="goal" parent="." index="3" instance=ExtResource( 2 )]
+position = Vector2( 960, 256 )
+size = Vector2( 4, 16 )
+
+[node name="rotator_sin" parent="." index="4" instance=ExtResource( 10 )]
+position = Vector2( 512, 256 )
+period = 8.0
+
+[node name="icezone0" parent="rotator_sin" index="0" instance=ExtResource( 5 )]
+position = Vector2( 0, 192 )
+size = Vector2( 4, 4 )
+
+[node name="icezone1" parent="rotator_sin" index="2" instance=ExtResource( 5 )]
+position = Vector2( 0, -192 )
+size = Vector2( 4, 4 )
+
+[node name="player" parent="." index="5" instance=ExtResource( 4 )]
+position = Vector2( 64, 256 )
+
+[node name="wall0" parent="." index="6" instance=ExtResource( 1 )]
+position = Vector2( 160, 96 )
+size = Vector2( 2, 6 )
+
+[node name="wall1" parent="." index="7" instance=ExtResource( 1 )]
+position = Vector2( 160, 416 )
+size = Vector2( 2, 6 )
+
+[node name="wall2" parent="." index="8" instance=ExtResource( 1 )]
+position = Vector2( 864, 96 )
+size = Vector2( 2, 6 )
+
+[node name="wall3" parent="." index="9" instance=ExtResource( 1 )]
+position = Vector2( 864, 416 )
+size = Vector2( 2, 6 )
+
+[node name="rotator_constant0" parent="." index="10" instance=ExtResource( 7 )]
+position = Vector2( 512, 256 )
+
+[node name="square_ring0" parent="rotator_constant0" index="1" instance=ExtResource( 9 )]
+squares = 16
+
+[node name="square_ring1" parent="rotator_constant0" index="2" instance=ExtResource( 9 )]
+rotation = -0.785397
+squares = 2
+radius = 160.0
+
+[node name="square_ring2" parent="rotator_constant0" index="3" instance=ExtResource( 9 )]
+rotation = -0.785397
+squares = 2
+radius = 192.0
+
+[node name="rotator_constant1" parent="." index="11" instance=ExtResource( 7 )]
+position = Vector2( 512, 256 )
+speed = -30.0
+
+[node name="square_ring0" parent="rotator_constant1" index="1" instance=ExtResource( 9 )]
+squares = 32
+radius = 256.0
+
+[node name="partial_ring_deleter" type="Node" parent="rotator_constant1/square_ring0" index="32"]
+script = ExtResource( 8 )
+
+[node name="square_ring1" parent="rotator_constant1" index="2" instance=ExtResource( 9 )]
+rotation = 0.785397
+squares = 2
+radius = 224.0
+
+[node name="square_ring2" parent="rotator_constant1" index="3" instance=ExtResource( 9 )]
+rotation = 0.785397
+squares = 2
+radius = 192.0
+
+[node name="square_line0" parent="." index="12" instance=ExtResource( 6 )]
+position = Vector2( 208, 336 )
+rotation = 0.785397
+squares = 8
+spacing = 32.0
+
+[node name="square_line1" parent="." index="13" instance=ExtResource( 6 )]
+position = Vector2( 208, 176 )
+rotation = -0.785397
+squares = 8
+spacing = 32.0
+
+[node name="square_line2" parent="." index="14" instance=ExtResource( 6 )]
+position = Vector2( 816, 176 )
+rotation = -2.35619
+squares = 8
+spacing = 32.0
+
+[node name="square_line3" parent="." index="15" instance=ExtResource( 6 )]
+position = Vector2( 816, 336 )
+rotation = 2.35619
+squares = 8
+spacing = 32.0
+
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square" to="rotator_constant0/square_ring0/square" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square2" to="rotator_constant0/square_ring0/square2" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square3" to="rotator_constant0/square_ring0/square3" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square4" to="rotator_constant0/square_ring0/square4" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square10" to="rotator_constant0/square_ring0/square10" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square11" to="rotator_constant0/square_ring0/square11" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square14" to="rotator_constant0/square_ring0/square14" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square15" to="rotator_constant0/square_ring0/square15" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square18" to="rotator_constant0/square_ring0/square18" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square19" to="rotator_constant0/square_ring0/square19" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square22" to="rotator_constant0/square_ring0/square22" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square23" to="rotator_constant0/square_ring0/square23" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square26" to="rotator_constant0/square_ring0/square26" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square27" to="rotator_constant0/square_ring0/square27" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square30" to="rotator_constant0/square_ring0/square30" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring0/square31" to="rotator_constant0/square_ring0/square31" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring1/square17" to="rotator_constant0/square_ring1/square17" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring1/square18" to="rotator_constant0/square_ring1/square18" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring2/square" to="rotator_constant0/square_ring2/square" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant0/square_ring2/square2" to="rotator_constant0/square_ring2/square2" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square129" to="rotator_constant1/square_ring0/square129" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square130" to="rotator_constant1/square_ring0/square130" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square131" to="rotator_constant1/square_ring0/square131" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square132" to="rotator_constant1/square_ring0/square132" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square133" to="rotator_constant1/square_ring0/square133" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square134" to="rotator_constant1/square_ring0/square134" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square135" to="rotator_constant1/square_ring0/square135" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square136" to="rotator_constant1/square_ring0/square136" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square137" to="rotator_constant1/square_ring0/square137" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square138" to="rotator_constant1/square_ring0/square138" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square139" to="rotator_constant1/square_ring0/square139" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square140" to="rotator_constant1/square_ring0/square140" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square141" to="rotator_constant1/square_ring0/square141" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square142" to="rotator_constant1/square_ring0/square142" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square143" to="rotator_constant1/square_ring0/square143" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square144" to="rotator_constant1/square_ring0/square144" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square145" to="rotator_constant1/square_ring0/square145" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square146" to="rotator_constant1/square_ring0/square146" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square147" to="rotator_constant1/square_ring0/square147" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square148" to="rotator_constant1/square_ring0/square148" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square149" to="rotator_constant1/square_ring0/square149" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square150" to="rotator_constant1/square_ring0/square150" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square151" to="rotator_constant1/square_ring0/square151" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square152" to="rotator_constant1/square_ring0/square152" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square153" to="rotator_constant1/square_ring0/square153" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square154" to="rotator_constant1/square_ring0/square154" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square155" to="rotator_constant1/square_ring0/square155" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square156" to="rotator_constant1/square_ring0/square156" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square157" to="rotator_constant1/square_ring0/square157" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square158" to="rotator_constant1/square_ring0/square158" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square159" to="rotator_constant1/square_ring0/square159" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring0/square160" to="rotator_constant1/square_ring0/square160" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring1/square" to="rotator_constant1/square_ring1/square" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring1/square2" to="rotator_constant1/square_ring1/square2" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring2/square5" to="rotator_constant1/square_ring2/square5" method="_on_body_entered"]
+[connection signal="body_entered" from="rotator_constant1/square_ring2/square6" to="rotator_constant1/square_ring2/square6" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square5" to="square_line0/square5" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square6" to="square_line0/square6" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square7" to="square_line0/square7" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square8" to="square_line0/square8" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square10" to="square_line0/square10" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square11" to="square_line0/square11" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square14" to="square_line0/square14" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line0/square15" to="square_line0/square15" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square25" to="square_line1/square25" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square26" to="square_line1/square26" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square27" to="square_line1/square27" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square28" to="square_line1/square28" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square29" to="square_line1/square29" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square30" to="square_line1/square30" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square31" to="square_line1/square31" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line1/square32" to="square_line1/square32" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square17" to="square_line2/square17" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square18" to="square_line2/square18" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square19" to="square_line2/square19" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square20" to="square_line2/square20" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square21" to="square_line2/square21" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square22" to="square_line2/square22" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square23" to="square_line2/square23" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line2/square24" to="square_line2/square24" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square25" to="square_line3/square25" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square26" to="square_line3/square26" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square27" to="square_line3/square27" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square28" to="square_line3/square28" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square29" to="square_line3/square29" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square30" to="square_line3/square30" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square31" to="square_line3/square31" method="_on_body_entered"]
+[connection signal="body_entered" from="square_line3/square32" to="square_line3/square32" method="_on_body_entered"]

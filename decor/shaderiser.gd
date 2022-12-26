@@ -9,6 +9,7 @@ var vignette_intensity: float = default_vi
 
 func _ready() -> void:
 	generate_texture()
+	Levels.connect("level_exited", self, "_on_level_exited")
 
 func _process(delta: float) -> void:
 	var player: KinematicBody2D
@@ -29,7 +30,12 @@ func _process(delta: float) -> void:
 func generate_texture():
 	var noise = OpenSimplexNoise.new()
 	var img: Image = noise.get_seamless_image(1024)
-	var tex: ImageTexture = ImageTexture.new()
-	tex.create_from_image(img)
+	var new_tex: ImageTexture = ImageTexture.new()
+	new_tex.create_from_image(img)
 	
-	material.set_shader_param("noise", tex)
+	material.set_shader_param("noise", new_tex)
+
+
+func _on_level_exited():
+	default_vi = 0.5
+	material.set_shader_param("centre", Vector2(0.5, 0.5))

@@ -23,10 +23,10 @@ func _ready() -> void:
 func visualise():
 	var points = PoolVector2Array()
 	var pointcount = 16
-	var initial_angle = deg2rad(angle)
+	var start_angle = deg2rad(angle)
 	
 	for i in range(pointcount + 1):
-		points.append( Vector2(radius, 0).rotated(initial_angle + i * PI*2/pointcount) )
+		points.append( Vector2(radius, 0).rotated(start_angle + i * PI*2/pointcount) )
 	
 	points.append(Vector2())
 	

@@ -10,6 +10,9 @@ var current_level: Vector2 = Vector2()
 
 const level_select_screen: PackedScene = preload("res://levelselect/levelselect.tscn")
 
+signal level_entered
+signal level_exited
+
 
 func _ready() -> void:
 	register_levels()
@@ -21,6 +24,8 @@ func enter_level(which: Vector2):
 		current_level = which
 		in_level = true
 		Game.switch_scene( levels[which] )
+		
+		emit_signal("level_entered", which)
 	else:
 		print("Attempting to enter nonexistent level %s" % which)
 		get_tree().quit()
@@ -35,6 +40,8 @@ func complete_level(where: Vector2 = current_level):
 
 func exit_level():
 	Game.switch_scene( level_select_screen )
+	
+	emit_signal("level_exited")
 
 func unlock_surrounding_levels(where: Vector2 = current_level):
 	for i in [

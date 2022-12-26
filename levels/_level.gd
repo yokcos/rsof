@@ -20,6 +20,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	Stats.time += delta
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		Levels.exit_level()
+
 
 func update_deaths():
 	$underbar/deaths.text = "%s Deaths" % Stats.deaths

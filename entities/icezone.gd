@@ -35,27 +35,11 @@ func apply_visual():
 	points.append(halfsize * Vector2(-1,  1))
 	$colouriser.polygon = points
 	
-	var noise = OpenSimplexNoise.new()
-	noise.seed = randi()
-	var img: Image = noise.get_seamless_image(calculate_texture_size())
-	var tex: ImageTexture = ImageTexture.new()
-	tex.create_from_image(img)
-	
-	$sprite.texture = tex
+	$sprite.texture = Game.ice_noise
+	$sprite.material.set_shader_param("noise", Game.ice_mod)
 	
 	$sprite.region_enabled = true
 	$sprite.region_rect.size = base_size*size
-	
-	noise.seed = randi()
-	img = noise.get_seamless_image(calculate_texture_size())
-	tex = ImageTexture.new()
-	tex.create_from_image(img)
-	
-	$sprite.material.set_shader_param("noise", tex)
-
-func calculate_texture_size():
-	var largest = max(size.x, size.y)
-	return largest * 32
 
 
 func set_size(what: Vector2):

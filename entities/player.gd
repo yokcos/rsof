@@ -8,6 +8,7 @@ var acceleration: float = 3000
 var friction: float = 10
 
 var slow_time: float = 0
+var frictionless: bool = false
 
 var spawn_pos: Vector2 = Vector2()
 
@@ -22,8 +23,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	$triangle.rotation_degrees += rotation_speed * delta
 	
-	tractutate(delta)
-	frictutate(delta)
+	if !frictionless:
+		tractutate(delta)
+		frictutate(delta)
 	
 	if slow_time > 0:
 		var slow_factor: float = 3
@@ -36,18 +38,27 @@ func _process(delta: float) -> void:
 		$triangle.color = default_colour
 
 func _input(event: InputEvent) -> void:
-	var jump_ratio = 1.0/25.0
-	var impulse = acceleration * jump_ratio
-	
-	if event.is_action_pressed("move_up"):
-		velocity.y -= impulse
-	if event.is_action_pressed("move_down"):
-		velocity.y += impulse
-	if event.is_action_pressed("move_left"):
-		velocity.x -= impulse
-	if event.is_action_pressed("move_right"):
-		velocity.x += impulse
+	if !frictionless:
+		var jump_ratio = 1.0/25.0
+		var impulse = acceleration * jump_ratio
+		
+		if event.is_action_pressed("move_up"):
+			velocity.y -= impulse
+		if event.is_action_pressed("move_down"):
+			velocity.y += impulse
+		if event.is_action_pressed("move_left"):
+			velocity.x -= impulse
+		if event.is_action_pressed("move_right"):
+			velocity.x += impulse
 
+
+func check_icezones():
+	frictionless = false
+	
+	for zone in get_tree().get_nodes_in_group("icezones"):
+		if self in zone.get_overlapping_bodies():
+			frictionless = true
+			break
 
 func tractutate(delta: float):
 	var traction: Vector2 = Vector2()
@@ -72,3 +83,4 @@ func die():
 	global_position = spawn_pos
 	slow_time = 0
 	Stats.deaths += 1
+	velocity = Vector2()

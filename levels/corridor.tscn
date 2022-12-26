@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://entities/wall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/goal.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/_level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/square.tscn" type="PackedScene" id=5]
+[ext_resource path="res://pieces/piston.tscn" type="PackedScene" id=6]
+[ext_resource path="res://entities/slowzone.tscn" type="PackedScene" id=7]
+
+[node name="level" instance=ExtResource( 3 )]
+title = "Corridor"
+pos = Vector2( 1, -1 )
+
+[node name="slowzone" parent="." index="3" instance=ExtResource( 7 )]
+position = Vector2( 512, 256 )
+size = Vector2( 20, 4 )
+duration = 2.0
+
+[node name="goal" parent="." index="4" instance=ExtResource( 2 )]
+position = Vector2( 96, 256 )
+size = Vector2( 6, 4 )
+
+[node name="player" parent="." index="5" instance=ExtResource( 4 )]
+position = Vector2( 928, 256 )
+
+[node name="wall0" parent="." index="6" instance=ExtResource( 1 )]
+position = Vector2( 512, 96 )
+size = Vector2( 32, 6 )
+
+[node name="wall1" parent="." index="7" instance=ExtResource( 1 )]
+position = Vector2( 512, 416 )
+size = Vector2( 32, 6 )
+
+[node name="piston0" parent="." index="8" instance=ExtResource( 6 )]
+position = Vector2( 208, 224 )
+offset = Vector2( 304, 0 )
+standby_time = 0.0
+extend_time = 2.0
+active_time = 0.0
+retract_time = 2.0
+
+[node name="square0" parent="piston0" index="1" instance=ExtResource( 5 )]
+position = Vector2( 0, -16 )
+
+[node name="square1" parent="piston0" index="2" instance=ExtResource( 5 )]
+position = Vector2( 0, 16 )
+
+[node name="square2" parent="piston0" index="3" instance=ExtResource( 5 )]
+position = Vector2( 304, 48 )
+
+[node name="square3" parent="piston0" index="4" instance=ExtResource( 5 )]
+position = Vector2( 304, 80 )
+
+[node name="piston1" parent="." index="9" instance=ExtResource( 6 )]
+position = Vector2( 208, 288 )
+offset = Vector2( 304, 0 )
+standby_time = 0.0
+extend_time = 2.0
+active_time = 0.0
+retract_time = 2.0
+phase = 2.0
+
+[node name="square0" parent="piston1" index="1" instance=ExtResource( 5 )]
+position = Vector2( 0, -16 )
+
+[node name="square1" parent="piston1" index="2" instance=ExtResource( 5 )]
+position = Vector2( 0, 16 )
+
+[node name="square2" parent="piston1" index="3" instance=ExtResource( 5 )]
+position = Vector2( 304, -80 )
+
+[node name="square3" parent="piston1" index="4" instance=ExtResource( 5 )]
+position = Vector2( 304, -48 )

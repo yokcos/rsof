@@ -20,7 +20,7 @@ func enter_level(which: Vector2):
 	if levels.has(which):
 		current_level = which
 		in_level = true
-		get_tree().change_scene_to( levels[which] )
+		Game.switch_scene( levels[which] )
 	else:
 		print("Attempting to enter nonexistent level %s" % which)
 		get_tree().quit()
@@ -34,7 +34,7 @@ func complete_level(where: Vector2 = current_level):
 	exit_level()
 
 func exit_level():
-	get_tree().change_scene_to( level_select_screen )
+	Game.switch_scene( level_select_screen )
 
 func unlock_surrounding_levels(where: Vector2 = current_level):
 	for i in [

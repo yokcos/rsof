@@ -21,13 +21,14 @@ _global_script_class_icons={
 [application]
 
 config/name="RSOF"
-run/main_scene="res://levelselect/levelselect.tscn"
+run/main_scene="res://gameholder.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Levels="*res://singleta/levels.gd"
 Game="*res://singleta/game.gd"
+Stats="*res://singleta/stats.gd"
 
 [display]
 

@@ -23,8 +23,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !Engine.editor_hint:
 		phase += delta
-		if phase >= total_time:
-			phase -= total_time
+		phase = fposmod(phase, total_time)
 		
 		var t0 = standby_time
 		var t1 = t0 + extend_time

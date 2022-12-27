@@ -7,6 +7,7 @@ var complete: Array = []
 
 var in_level: bool = false
 var current_level: Vector2 = Vector2()
+var previous_level: Vector2 = Vector2()
 
 const level_select_screen: PackedScene = preload("res://levelselect/levelselect.tscn")
 
@@ -22,6 +23,7 @@ func _ready() -> void:
 func enter_level(which: Vector2):
 	if levels.has(which):
 		current_level = which
+		previous_level = which
 		in_level = true
 		Game.switch_scene( levels[which] )
 		
@@ -44,15 +46,29 @@ func exit_level():
 	emit_signal("level_exited")
 
 func unlock_surrounding_levels(where: Vector2 = current_level):
-	for i in [
+	var directions = [
 		Vector2( 1, 0),
 		Vector2( 0, 1),
 		Vector2(-1, 0),
 		Vector2( 0,-1),
-	]:
+	]
+	
+	for i in directions:
 		var target_level = where + i
-		if levels.has(target_level):
-			unlock_level(target_level)
+		
+		if target_level == Vector2(0, -1):
+			# Final level
+			var adjacents = 0
+			
+			for j in directions:
+				if unlocked.has(target_level + j):
+					adjacents += 1
+			
+			if adjacents >= 3:
+				unlock_level(target_level)
+		else:
+			if levels.has(target_level):
+				unlock_level(target_level)
 
 func unlock_level(where: Vector2 = current_level):
 	if !unlocked.has(where):
@@ -98,4 +114,8 @@ func load_progress():
 		complete = file.get_var()
 		unlocked = file.get_var()
 		file.close()
+
+func reset_progress():
+	unlocked = [Vector2()]
+	complete = []
 

@@ -8,3 +8,4 @@
 [node name="snow" parent="." instance=ExtResource( 1 )]
 
 [node name="shaderiser" parent="." instance=ExtResource( 2 )]
+mouse_filter = 2

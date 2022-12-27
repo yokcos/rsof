@@ -19,6 +19,11 @@ radius = 72.0
 polygon = PoolVector2Array( 0, -64, -64, 0, 0, 64, 64, 0 )
 radius = 64.0
 
+[node name="complete" parent="." instance=ExtResource( 2 )]
+color = Color( 0.313726, 0.341176, 0.376471, 1 )
+polygon = PoolVector2Array( 0, -64, -64, 0, 0, 64, 64, 0 )
+radius = 48.0
+
 [node name="rayU" type="RayCast2D" parent="."]
 visible = false
 position = Vector2( 0, -72 )

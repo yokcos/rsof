@@ -5,6 +5,8 @@ var gameholder: Node2D = null
 var ice_noise: Texture = null
 var ice_mod: Texture = null
 
+signal player_died
+
 
 func _ready() -> void:
 	create_ice_noise()
@@ -27,4 +29,9 @@ func create_ice_noise():
 	tex = ImageTexture.new()
 	tex.create_from_image(img)
 	ice_mod = tex
+
+func delete_saves():
+	var dir = Directory.new()
+	dir.remove("user://stats.sav")
+	dir.remove("user://progress.sav")
 

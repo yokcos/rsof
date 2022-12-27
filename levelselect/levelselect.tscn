@@ -1,9 +1,57 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://misc/fnt_main.tres" type="DynamicFont" id=1]
 [ext_resource path="res://levelselect/levelselect.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.317647, 0.298039, 0.32549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.772549, 0.858824, 0.85098, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.317647, 0.298039, 0.32549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.227451, 0.215686, 0.239216, 1 )
 
 [node name="levelselect" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="levels" type="Node2D" parent="."]
 position = Vector2( 512, 288 )
+
+[node name="credit" type="Label" parent="."]
+margin_left = 256.0
+margin_top = 552.0
+margin_right = 448.0
+margin_bottom = 576.0
+custom_colors/font_color = Color( 0.227451, 0.215686, 0.239216, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Game by Yokcos"
+valign = 1
+
+[node name="notice" type="Label" parent="."]
+margin_left = 576.0
+margin_top = 552.0
+margin_right = 1014.0
+margin_bottom = 576.0
+custom_colors/font_color = Color( 0.227451, 0.215686, 0.239216, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Rotating Squares of Frost is in the public domain"
+align = 2
+valign = 1
+
+[node name="delete" type="Button" parent="."]
+margin_top = 552.0
+margin_right = 192.0
+margin_bottom = 576.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+text = "Delete save"
+
+[connection signal="pressed" from="delete" to="." method="_on_delete_pressed"]

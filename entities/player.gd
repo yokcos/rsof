@@ -84,3 +84,4 @@ func die():
 	slow_time = 0
 	Stats.deaths += 1
 	velocity = Vector2()
+	Game.emit_signal("player_died")

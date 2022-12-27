@@ -10,6 +10,7 @@ var vignette_intensity: float = default_vi
 func _ready() -> void:
 	generate_texture()
 	Levels.connect("level_exited", self, "_on_level_exited")
+	Game.connect("player_died", self, "_on_player_died")
 
 func _process(delta: float) -> void:
 	var player: KinematicBody2D
@@ -39,3 +40,6 @@ func generate_texture():
 func _on_level_exited():
 	default_vi = 0.5
 	material.set_shader_param("centre", Vector2(0.5, 0.5))
+
+func _on_player_died():
+	vignette_intensity = 3
